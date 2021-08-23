@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-size: 1.8rem;
+
+  font-family: "Goldman", cursive;
+}
+
+.webgl {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  outline: none;
+}
+
+.landing-page {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-color: none;
+  z-index: 1;
+  border: red solid 2px;
+  font-size: 2.2rem;
+  
+
+  color: white;
+}
