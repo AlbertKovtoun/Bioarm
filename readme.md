@@ -1,3 +1,5 @@
+# Make sure that if you're on Linux, you give full permission to the file!
+
 ## Setup
 Windows Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
