@@ -39,11 +39,7 @@ const updateAllMaterials = () => {
       child instanceof THREE.Mesh &&
       child.material instanceof THREE.MeshStandardMaterial
     ) {
-      //   child.material.envMap = environmentMap;
-      child.material.envMapIntensity = debugObject.envMapIntensity;
       child.material.needsUpdate = true;
-      child.castShadow = true;
-      child.receiveShadow = true;
     }
   });
 };
@@ -57,6 +53,8 @@ gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
   bionicArm.scale.set(50, 50, 50);
   bionicArm.position.set(3, 0.6, 0);
   bionicArm.rotation.x = Math.PI / 2;
+
+  
 
   gui
     .add(bionicArm.rotation, "x")
@@ -77,8 +75,6 @@ gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
     .step(0.01)
     .name("rotationz");
   scene.add(bionicArm);
-
-  bionicArm.map
 
   updateAllMaterials();
 });
