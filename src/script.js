@@ -9,7 +9,9 @@ import { ACESFilmicToneMapping } from "three";
  * Loader
  */
 const gltfLoader = new GLTFLoader();
-const cubeTextureLoader = new THREE.CubeTextureLoader();
+const textureLoader = new THREE.TextureLoader();
+
+
 
 /**
  * Base
@@ -31,7 +33,7 @@ const axisHelper = new THREE.AxesHelper();
 scene.add(axisHelper);
 
 /**
- * Upadte all materials
+ * Update all materials
  */
 const updateAllMaterials = () => {
   scene.traverse((child) => {
