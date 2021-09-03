@@ -4,6 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { ACESFilmicToneMapping } from "three";
+import { gsap } from "gsap";
+import { TweenLite } from "gsap/gsap-core";
 
 /**
  * Loader
@@ -15,31 +17,37 @@ const textureLoader = new THREE.TextureLoader();
  * Load textures
  */
 const bionicArmPurple = textureLoader.load(
-  "/models/Bionic/textures/Bionic Color.png"
+  "/models/Bionic/textures/Bionic Color.jpg"
 );
 bionicArmPurple.flipY = false;
 bionicArmPurple.encoding = THREE.sRGBEncoding;
 
 const bionicArmRed = textureLoader.load(
-  "/models/Bionic/textures/Bionic Color Red.png"
+  "/models/Bionic/textures/Bionic Color Red.jpg"
 );
 bionicArmRed.flipY = false;
 bionicArmRed.encoding = THREE.sRGBEncoding;
 
+const bionicArmYellow = textureLoader.load(
+  "/models/Bionic/textures/Bionic Color Yellow.jpg"
+);
+bionicArmYellow.flipY = false;
+bionicArmYellow.encoding = THREE.sRGBEncoding;
+
 const bionicArmScrew = textureLoader.load(
-  "/models/Bionic/textures/Screw Baked.png"
+  "/models/Bionic/textures/Screw Baked.jpg"
 );
 bionicArmScrew.flipY = false;
 bionicArmScrew.encoding = THREE.sRGBEncoding;
 
 const bionicArmPlate = textureLoader.load(
-  "/models/Bionic/textures/Japanese side Baked.png"
+  "/models/Bionic/textures/Japanese side Baked.jpg"
 );
 bionicArmPlate.flipY = false;
 bionicArmPlate.encoding = THREE.sRGBEncoding;
 
 const bionicArmDot = textureLoader.load(
-  "/models/Bionic/textures/Japanese button Baked.png"
+  "/models/Bionic/textures/Japanese button Baked.jpg"
 );
 bionicArmDot.flipY = false;
 bionicArmDot.encoding = THREE.sRGBEncoding;
@@ -90,6 +98,9 @@ const bionicarmPurpleMaterial = new THREE.MeshBasicMaterial({
   map: bionicArmPurple,
 });
 const bionicarmRedMaterial = new THREE.MeshBasicMaterial({ map: bionicArmRed });
+const bionicarmYellowMaterial = new THREE.MeshBasicMaterial({
+  map: bionicArmYellow,
+});
 
 // Other materials
 const screwMaterial = new THREE.MeshBasicMaterial({ map: bionicArmScrew });
@@ -145,8 +156,29 @@ gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
   updateAllMaterials();
 });
 
-changeColorButton.addEventListener("click", () => {
+/**
+ * Click events
+ */
+
+gsap.defaults({ ease: "power1.in" });
+
+const purpleButton = document.querySelector(".color-overlay-purple");
+const redButton = document.querySelector(".color-overlay-red");
+const yellowButton = document.querySelector(".color-overlay-yellow");
+
+purpleButton.addEventListener("click", () => {
+  bionicArmBase.material = bionicarmPurpleMaterial;
+
+  gsap.to(bionicArm.rotation, {
+    z: Math.PI * 12,
+    duration: 2,
+  });
+});
+redButton.addEventListener("click", () => {
   bionicArmBase.material = bionicarmRedMaterial;
+});
+yellowButton.addEventListener("click", () => {
+  bionicArmBase.material = bionicarmYellowMaterial;
 });
 
 /**
@@ -201,7 +233,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.5;
+renderer.toneMappingExposure = 1;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
