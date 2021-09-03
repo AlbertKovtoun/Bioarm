@@ -11,11 +11,44 @@ import { ACESFilmicToneMapping } from "three";
 const gltfLoader = new GLTFLoader();
 const textureLoader = new THREE.TextureLoader();
 
+/**
+ * Load textures
+ */
+const bionicArmPurple = textureLoader.load(
+  "/models/Bionic/textures/Bionic Color.png"
+);
+bionicArmPurple.flipY = false;
+bionicArmPurple.encoding = THREE.sRGBEncoding;
 
+const bionicArmRed = textureLoader.load(
+  "/models/Bionic/textures/Bionic Color Red.png"
+);
+bionicArmRed.flipY = false;
+bionicArmRed.encoding = THREE.sRGBEncoding;
+
+const bionicArmScrew = textureLoader.load(
+  "/models/Bionic/textures/Screw Baked.png"
+);
+bionicArmScrew.flipY = false;
+bionicArmScrew.encoding = THREE.sRGBEncoding;
+
+const bionicArmPlate = textureLoader.load(
+  "/models/Bionic/textures/Japanese side Baked.png"
+);
+bionicArmPlate.flipY = false;
+bionicArmPlate.encoding = THREE.sRGBEncoding;
+
+const bionicArmDot = textureLoader.load(
+  "/models/Bionic/textures/Japanese button Baked.png"
+);
+bionicArmDot.flipY = false;
+bionicArmDot.encoding = THREE.sRGBEncoding;
 
 /**
  * Base
  */
+const changeColorButton = document.querySelector(".btn");
+
 // Debug
 const gui = new dat.GUI();
 const debugObject = {};
@@ -49,56 +82,72 @@ const updateAllMaterials = () => {
 /**
  * Models
  */
+
+let bionicArm;
+
+// Bionicarm material
+const bionicarmPurpleMaterial = new THREE.MeshBasicMaterial({
+  map: bionicArmPurple,
+});
+const bionicarmRedMaterial = new THREE.MeshBasicMaterial({ map: bionicArmRed });
+
+// Other materials
+const screwMaterial = new THREE.MeshBasicMaterial({ map: bionicArmScrew });
+const plateMaterial = new THREE.MeshBasicMaterial({ map: bionicArmPlate });
+const dotMaterial = new THREE.MeshBasicMaterial({ map: bionicArmDot });
+
+let bionicArmBase;
+
 gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
-  let bionicArm = gltf.scene;
+  bionicArm = gltf.scene;
+
+  bionicArmBase = gltf.scene.children[0].children[0];
+  const bionicArmScrews = gltf.scene.children[0].children[1];
+  const bionicArmPlate = gltf.scene.children[0].children[2];
+  const bionicArmDot = gltf.scene.children[0].children[3];
+
+  // bionicArm.traverse(function (child) {
+  //   if (child instanceof THREE.Mesh) {
+  //     console.log(child);
+  //     child.material = bionicarmRedMaterial;
+  //   }
+  // });
+
+  bionicArmBase.material = bionicarmPurpleMaterial;
+  bionicArmScrews.material = screwMaterial;
+  bionicArmPlate.material = plateMaterial;
+  bionicArmDot.material = dotMaterial;
 
   bionicArm.scale.set(50, 50, 50);
   bionicArm.position.set(3, 0.6, 0);
   bionicArm.rotation.x = Math.PI / 2;
-
-  
-
-  gui
-    .add(bionicArm.rotation, "x")
-    .min(-Math.PI)
-    .max(Math.PI)
-    .step(0.01)
-    .name("rotationx");
-  gui
-    .add(bionicArm.rotation, "y")
-    .min(-Math.PI)
-    .max(Math.PI)
-    .step(0.01)
-    .name("rotationy");
-  gui
-    .add(bionicArm.rotation, "z")
-    .min(-Math.PI)
-    .max(Math.PI)
-    .step(0.01)
-    .name("rotationz");
   scene.add(bionicArm);
+
+  // gui
+  //   .add(bionicArm.rotation, "x")
+  //   .min(-Math.PI)
+  //   .max(Math.PI)
+  //   .step(0.01)
+  //   .name("rotationx");
+  // gui
+  //   .add(bionicArm.rotation, "y")
+  //   .min(-Math.PI)
+  //   .max(Math.PI)
+  //   .step(0.01)
+  //   .name("rotationy");
+  // gui
+  //   .add(bionicArm.rotation, "z")
+  //   .min(-Math.PI)
+  //   .max(Math.PI)
+  //   .step(0.01)
+  //   .name("rotationz");
 
   updateAllMaterials();
 });
 
-/**
- * Particles
- */
-// const particlesGeometry = new THREE.SphereGeometry(1, 32, 32);
-
-// const particlesMaterial = new THREE.PointsMaterial({
-//   size: 0.02,
-//   sizeAttenuation: true,
-// });
-
-// const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-// scene.add(particles);
-
-/**
- * Lights
- */
-const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-scene.add(ambientLight);
+changeColorButton.addEventListener("click", () => {
+  bionicArmBase.material = bionicarmRedMaterial;
+});
 
 /**
  * Sizes
@@ -152,7 +201,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.physicallyCorrectLights = true;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 2.5;
+renderer.toneMappingExposure = 1.5;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
