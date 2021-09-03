@@ -160,25 +160,53 @@ gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
  * Click events
  */
 
-gsap.defaults({ ease: "power1.in" });
+gsap.defaults({ ease: "power3.inOut" });
 
 const purpleButton = document.querySelector(".color-overlay-purple");
 const redButton = document.querySelector(".color-overlay-red");
 const yellowButton = document.querySelector(".color-overlay-yellow");
 
-purpleButton.addEventListener("click", () => {
-  bionicArmBase.material = bionicarmPurpleMaterial;
+let tl = gsap.timeline({});
 
-  gsap.to(bionicArm.rotation, {
-    z: Math.PI * 12,
-    duration: 2,
+purpleButton.addEventListener("click", () => {
+  
+  tl.to(bionicArm.rotation, {
+    z: "+=" + Math.PI * 12,
+    duration: 5,
+    onStart: () => {
+      bionicArmBase.material = bionicarmPurpleMaterial;
+    },
+    onComplete: () => {
+      bionicArm.rotation.z = 0;
+    }
   });
 });
+
 redButton.addEventListener("click", () => {
-  bionicArmBase.material = bionicarmRedMaterial;
+
+  tl.to(bionicArm.rotation, {
+    z: "+=" + Math.PI * 12,
+    duration: 5,
+    onStart: () => {
+      bionicArmBase.material = bionicarmRedMaterial;
+    },
+    onComplete: () => {
+      bionicArm.rotation.z = 0;
+    }
+  });
 });
 yellowButton.addEventListener("click", () => {
-  bionicArmBase.material = bionicarmYellowMaterial;
+
+  tl.to(bionicArm.rotation, {
+    z: "+=" + Math.PI * 12,
+    duration: 5,
+    onStart: () => {
+      bionicArmBase.material = bionicarmYellowMaterial;
+    },
+    onComplete: () => {
+      bionicArm.rotation.z = 0;
+    }
+  });
 });
 
 /**
