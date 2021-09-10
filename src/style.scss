@@ -35,23 +35,22 @@ body {
   justify-content: space-evenly;
 }
 
-.color-overlay-purple {
-  background-color: purple;
+.color-overlay-purple,
+.color-overlay-red,
+.color-overlay-yellow {
   width: 5rem;
   height: 5vh;
   border: white solid 2px;
+}
+
+.color-overlay-purple {
+  background-color: purple;
 }
 .color-overlay-red {
   background-color: red;
-  width: 5rem;
-  height: 5vh;
-  border: white solid 2px;
 }
 .color-overlay-yellow {
   background-color: yellow;
-  width: 5rem;
-  height: 5vh;
-  border: white solid 2px;
 }
 
 .landing-page {

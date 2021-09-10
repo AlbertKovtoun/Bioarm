@@ -1,11 +1,14 @@
 import "./style.scss";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import * as dat from "dat.gui";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { ACESFilmicToneMapping } from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { gsap } from "gsap";
-import { TweenLite } from "gsap/gsap-core";
+import {
+  bionicArmToPurple,
+  bionicArmToRed,
+  bionicArmToYellow,
+} from "./change-arm-color";
 
 /**
  * Loader
@@ -55,11 +58,9 @@ bionicArmDot.encoding = THREE.sRGBEncoding;
 /**
  * Base
  */
-const changeColorButton = document.querySelector(".btn");
 
 // Debug
 const gui = new dat.GUI();
-const debugObject = {};
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -72,20 +73,6 @@ const scene = new THREE.Scene();
  */
 const axisHelper = new THREE.AxesHelper();
 scene.add(axisHelper);
-
-/**
- * Update all materials
- */
-const updateAllMaterials = () => {
-  scene.traverse((child) => {
-    if (
-      child instanceof THREE.Mesh &&
-      child.material instanceof THREE.MeshStandardMaterial
-    ) {
-      child.material.needsUpdate = true;
-    }
-  });
-};
 
 /**
  * Models
@@ -152,62 +139,14 @@ gltfLoader.load("/models/Bionic/Bionic arm.gltf", (gltf) => {
   //   .max(Math.PI)
   //   .step(0.01)
   //   .name("rotationz");
-
-  updateAllMaterials();
 });
 
 /**
  * Click events
  */
-
-gsap.defaults({ ease: "power3.inOut" });
-
-const purpleButton = document.querySelector(".color-overlay-purple");
-const redButton = document.querySelector(".color-overlay-red");
-const yellowButton = document.querySelector(".color-overlay-yellow");
-
-let tl = gsap.timeline({});
-
-purpleButton.addEventListener("click", () => {
-  
-  tl.to(bionicArm.rotation, {
-    z: "+=" + Math.PI * 12,
-    duration: 5,
-    onStart: () => {
-      bionicArmBase.material = bionicarmPurpleMaterial;
-    },
-    onComplete: () => {
-      bionicArm.rotation.z = 0;
-    }
-  });
-});
-
-redButton.addEventListener("click", () => {
-
-  tl.to(bionicArm.rotation, {
-    z: "+=" + Math.PI * 12,
-    duration: 5,
-    onStart: () => {
-      bionicArmBase.material = bionicarmRedMaterial;
-    },
-    onComplete: () => {
-      bionicArm.rotation.z = 0;
-    }
-  });
-});
-yellowButton.addEventListener("click", () => {
-
-  tl.to(bionicArm.rotation, {
-    z: "+=" + Math.PI * 12,
-    duration: 5,
-    onStart: () => {
-      bionicArmBase.material = bionicarmYellowMaterial;
-    },
-    onComplete: () => {
-      bionicArm.rotation.z = 0;
-    }
-  });
-});
+bionicArmToPurple(5);
+bionicArmToRed(5);
+bionicArmToYellow(5);
 
 /**
  * Sizes
@@ -265,19 +204,6 @@ renderer.toneMappingExposure = 1;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-gui
-  .add(renderer, "toneMapping", {
-    No: THREE.NoToneMapping,
-    Linear: THREE.LinearToneMapping,
-    Reinhard: THREE.ReinhardToneMapping,
-    Cineon: THREE.CineonToneMapping,
-    ACESFilmic: THREE.ACESFilmicToneMapping,
-  })
-  .onFinishChange(() => {
-    renderer.toneMapping = Number(renderer.toneMapping);
-    updateAllMaterials();
-  });
-
 gui.add(renderer, "toneMappingExposure").min(0).max(10).step(0.001);
 
 /**
@@ -295,3 +221,11 @@ const tick = () => {
 };
 
 tick();
+
+export {
+  bionicArm,
+  bionicArmBase,
+  bionicarmPurpleMaterial,
+  bionicarmRedMaterial,
+  bionicarmYellowMaterial,
+};
