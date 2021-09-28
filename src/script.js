@@ -1,7 +1,7 @@
 import "./style.scss"
 import * as THREE from "three"
+import { Pane } from "tweakpane"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import * as dat from "dat.gui"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 import { gsap } from "gsap"
 import {
@@ -72,7 +72,7 @@ bionicArmChip.encoding = THREE.sRGBEncoding
  */
 
 // Debug
-const gui = new dat.GUI()
+const pane = new Pane()
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl")

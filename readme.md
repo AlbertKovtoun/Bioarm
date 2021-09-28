@@ -1,4 +1,4 @@
-# Make sure that if you're on Linux, you give full permission to the file!
+# Make sure that if you're on Linux, you give full permission to the folder!
 
 ## Setup
 Windows Download [Node.js](https://nodejs.org/en/download/).
