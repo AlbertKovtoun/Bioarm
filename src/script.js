@@ -11,6 +11,7 @@ import {
   bionicArmToRed,
   bionicArmToYellow,
 } from "./change-arm-color"
+import { animateOnScroll } from "./animate-arm"
 
 /**
  * Stats
@@ -81,7 +82,7 @@ bionicArmChip.encoding = THREE.sRGBEncoding
  */
 
 // Debug
-const pane = new Pane()
+export const pane = new Pane()
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl")
@@ -157,11 +158,18 @@ gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   bionicArmBoard.material = boardMaterial
   bionicArmChip.material = chipMaterial
 
-  bionicArm.scale.set(30, 30, 30)
-  bionicArm.position.set(0, 0.3, 0)
+  bionicArm.scale.set(28, 28, 28)
+  bionicArm.position.set(2, 0.3, 0)
   bionicArm.rotation.x = Math.PI / 2
   scene.add(bionicArm)
 })
+
+/**
+ * Animate on scroll
+ */
+setTimeout(() => {
+  animateOnScroll()
+}, 1000)
 
 /**
  * Click events
