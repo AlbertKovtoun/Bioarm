@@ -4,11 +4,20 @@ import { Pane } from "tweakpane"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 import { gsap } from "gsap"
+import Stats from "stats.js"
+
 import {
   bionicArmToPurple,
   bionicArmToRed,
   bionicArmToYellow,
 } from "./change-arm-color"
+
+/**
+ * Stats
+ */
+const stats = new Stats()
+stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom)
 
 /**
  * Loader
@@ -84,20 +93,22 @@ const scene = new THREE.Scene()
  * Axishelper
  */
 const axisHelper = new THREE.AxesHelper()
-scene.add(axisHelper)
+// scene.add(axisHelper)
 
 /**
  * Models
  */
 
-let bionicArm
+export let bionicArm
 
 // Bionicarm material
-const bionicarmPurpleMaterial = new THREE.MeshBasicMaterial({
+export const bionicarmPurpleMaterial = new THREE.MeshBasicMaterial({
   map: bionicArmPurple,
 })
-const bionicarmRedMaterial = new THREE.MeshBasicMaterial({ map: bionicArmRed })
-const bionicarmYellowMaterial = new THREE.MeshBasicMaterial({
+export const bionicarmRedMaterial = new THREE.MeshBasicMaterial({
+  map: bionicArmRed,
+})
+export const bionicarmYellowMaterial = new THREE.MeshBasicMaterial({
   map: bionicArmYellow,
 })
 
@@ -108,7 +119,7 @@ const dotMaterial = new THREE.MeshBasicMaterial({ map: bionicArmDot })
 const boardMaterial = new THREE.MeshBasicMaterial({ map: bionicArmBoard })
 const chipMaterial = new THREE.MeshBasicMaterial({ map: bionicArmChip })
 
-let bionicArmBase
+export let bionicArmBase
 
 gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   bionicArm = gltf.scene
@@ -139,14 +150,15 @@ gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   //Assign Materials
   bionicArmBase.material = bionicarmPurpleMaterial
   bionicArmCover.material = bionicarmPurpleMaterial
+  // bionicArmCover.position.z = 0.1
   bionicArmScrews.material = screwMaterial
   bionicArmPlate.material = plateMaterial
   bionicArmDot.material = dotMaterial
   bionicArmBoard.material = boardMaterial
   bionicArmChip.material = chipMaterial
 
-  bionicArm.scale.set(50, 50, 50)
-  bionicArm.position.set(0, 0.6, 0)
+  bionicArm.scale.set(30, 30, 30)
+  bionicArm.position.set(0, 0.3, 0)
   bionicArm.rotation.x = Math.PI / 2
   scene.add(bionicArm)
 })
@@ -185,7 +197,7 @@ window.addEventListener("resize", () => {
  */
 // Base camera
 const camera = new THREE.PerspectiveCamera(
-  75,
+  45,
   sizes.width / sizes.height,
   0.1,
   100
@@ -214,12 +226,13 @@ renderer.toneMappingExposure = 1
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-gui.add(renderer, "toneMappingExposure").min(0).max(10).step(0.001)
+// gui.add(renderer, "toneMappingExposure").min(0).max(10).step(0.001)
 
 /**
  * Animate
  */
 const tick = () => {
+  stats.begin()
   // Update controls
   controls.update()
 
@@ -228,14 +241,7 @@ const tick = () => {
 
   // Call tick again on the next frame
   window.requestAnimationFrame(tick)
+  stats.end()
 }
 
 tick()
-
-export {
-  bionicArm,
-  bionicArmBase,
-  bionicarmPurpleMaterial,
-  bionicarmRedMaterial,
-  bionicarmYellowMaterial,
-}
