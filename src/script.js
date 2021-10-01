@@ -3,7 +3,6 @@ import * as THREE from "three"
 import { Pane } from "tweakpane"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
-import { gsap } from "gsap"
 import Stats from "stats.js"
 
 import {
@@ -83,6 +82,7 @@ bionicArmChip.encoding = THREE.sRGBEncoding
 
 // Debug
 export const pane = new Pane()
+pane.hidden = !pane.hidden
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl")
@@ -91,15 +91,8 @@ const canvas = document.querySelector("canvas.webgl")
 const scene = new THREE.Scene()
 
 /**
- * Axishelper
+ * Model
  */
-const axisHelper = new THREE.AxesHelper()
-// scene.add(axisHelper)
-
-/**
- * Models
- */
-
 export let bionicArm
 
 // Bionicarm material
@@ -218,6 +211,7 @@ scene.add(camera)
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
 controls.enableZoom = true
+controls.enabled = false
 
 /**
  * Renderer
