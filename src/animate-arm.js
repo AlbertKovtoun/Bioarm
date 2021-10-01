@@ -183,18 +183,18 @@ export const animateOnScroll = () => {
         trigger: ".colors-container",
         scrub: scrubAmount,
         start: "top bottom",
-        end: "center center",
+        end: "+=500",
       },
     })
     .to(bionicArm.position, {
       x: -0.05,
-      y: 0.3,
+      y: 0.5,
       z: 0,
       scrollTrigger: {
         trigger: ".colors-container",
         scrub: scrubAmount,
         start: "top bottom",
-        end: "center center",
+        end: "+=700",
       },
     })
     .to(bionicArm.rotation, {
@@ -205,7 +205,7 @@ export const animateOnScroll = () => {
         trigger: ".colors-container",
         scrub: scrubAmount,
         start: "top bottom",
-        end: "center center",
+        end: "+=700",
       },
     })
 

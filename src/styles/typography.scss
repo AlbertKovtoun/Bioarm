@@ -1,11 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap");
+
 html {
     font-size: 62.5%;
+    font-family: "Goldman", cursive;
+}
+
+button {
+    font-family: "Goldman", cursive;
 }
 
 h1,
 h2,
 h3,
-p {
+p,
+button {
     font-weight: normal;
     letter-spacing: 0.2rem;
 }
