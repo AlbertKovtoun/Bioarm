@@ -153,7 +153,7 @@ gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   bionicArmChip.material = chipMaterial
 
   bionicArm.scale.set(28, 28, 28)
-  bionicArm.position.set(2, 0.3, 0)
+  bionicArm.position.set(2, 0.3, 0.2)
   bionicArm.rotation.x = Math.PI / 2
   // bionicArm.rotation.y = -Math.PI / 2
   scene.add(bionicArm)
