@@ -11,6 +11,7 @@ import {
   bionicArmToYellow,
 } from "./change-arm-color"
 import { animateOnScroll } from "./animate-arm"
+import { textReveal } from "./text-reveal"
 
 /**
  * Stats
@@ -165,6 +166,7 @@ setTimeout(() => {
   animateOnScroll()
 }, 1000)
 
+textReveal()
 /**
  * Click events
  */
