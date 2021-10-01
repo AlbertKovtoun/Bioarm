@@ -1,10 +1,10 @@
-# Make sure that if you're on Linux, you give full permission to the folder!
+# Bionic arm showcase project
 
 ## Setup
-Windows Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
 
-``` bash
+Download [Node.js](https://nodejs.org/en/download/) and run the following commands:
+
+```bash
 # Install dependencies (only the first time)
 npm install
 
@@ -14,3 +14,5 @@ npm run dev
 # Build for production in the dist/ directory
 npm run build
 ```
+
+Made by Albert Kovtoun, CEO of [Suro Development](https://www.suro.tech/).
