@@ -121,6 +121,7 @@ const boardMaterial = new THREE.MeshBasicMaterial({ map: bionicArmBoard })
 const chipMaterial = new THREE.MeshBasicMaterial({ map: bionicArmChip })
 
 export let bionicArmBase
+export let bionicArmCover
 
 gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   bionicArm = gltf.scene
@@ -138,7 +139,7 @@ gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   const bionicArmDot = bionicArm.children.find((child) => {
     return child.name === "japaneseButton"
   })
-  const bionicArmCover = bionicArm.children.find((child) => {
+  bionicArmCover = bionicArm.children.find((child) => {
     return child.name === "cover"
   })
   const bionicArmBoard = bionicArm.children.find((child) => {
@@ -151,7 +152,6 @@ gltfLoader.load("/models/Bionic/Bionic arm.glb", (gltf) => {
   //Assign Materials
   bionicArmBase.material = bionicarmPurpleMaterial
   bionicArmCover.material = bionicarmPurpleMaterial
-  // bionicArmCover.position.z = 0.1
   bionicArmScrews.material = screwMaterial
   bionicArmPlate.material = plateMaterial
   bionicArmDot.material = dotMaterial

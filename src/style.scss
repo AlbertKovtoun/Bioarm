@@ -111,3 +111,14 @@ body {
   font-size: 2.2rem;
   color: white;
 }
+
+.colors-container {
+  position: relative;
+  width: 50%;
+  height: 100vh;
+  background-color: none;
+  z-index: 1;
+  border-left: tomato solid 10px;
+  font-size: 2.2rem;
+  color: white;
+}

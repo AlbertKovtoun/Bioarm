@@ -1,6 +1,6 @@
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/all"
-import { bionicArm, pane } from "./script"
+import { bionicArm, bionicArmCover, pane } from "./script"
 
 export const animateOnScroll = () => {
   //Arm Position Tweaks
@@ -43,6 +43,26 @@ export const animateOnScroll = () => {
     label: "armRotZ",
   })
 
+  //Cover Position Tweaks
+  pane.addInput(bionicArmCover.position, "x", {
+    min: -0.1,
+    max: 0.1,
+    step: 0.0001,
+    label: "coverPosX",
+  })
+  pane.addInput(bionicArmCover.position, "y", {
+    min: -0.1,
+    max: 0.1,
+    step: 0.0001,
+    label: "coverPosY",
+  })
+  pane.addInput(bionicArmCover.position, "z", {
+    min: -0.1,
+    max: 0.1,
+    step: 0.0001,
+    label: "coverPosZ",
+  })
+
   gsap.registerPlugin(ScrollTrigger)
 
   const tl = gsap.timeline()
@@ -57,7 +77,6 @@ export const animateOnScroll = () => {
     scrollTrigger: {
       trigger: ".design-container",
       scrub: scrubAmount,
-      // markers: true,
       start: "top bottom",
       end: "center center",
     },
@@ -70,7 +89,6 @@ export const animateOnScroll = () => {
       scrollTrigger: {
         trigger: ".design-container",
         scrub: scrubAmount,
-        // markers: true,
         start: "top bottom",
         end: "center center",
       },
@@ -84,7 +102,6 @@ export const animateOnScroll = () => {
       scrollTrigger: {
         trigger: ".materials-container",
         scrub: scrubAmount,
-        markers: false,
         start: "top bottom",
         end: "center center",
       },
@@ -96,36 +113,101 @@ export const animateOnScroll = () => {
       scrollTrigger: {
         trigger: ".materials-container",
         scrub: scrubAmount,
-        markers: false,
         start: "top bottom",
         end: "center center",
       },
     })
 
-  //?3rd Position
-  tl.to(bionicArm.position, {
-    x: 0,
-    y: -0.5,
-    z: 2.2,
-    scrollTrigger: {
-      trigger: ".core-container",
-      scrub: scrubAmount,
-      markers: false,
-      start: "top bottom",
-      end: "center center",
-    },
-  }).to(bionicArm.rotation, {
-    x: 1.57,
-    y: 0,
-    z: 0,
-    scrollTrigger: {
-      trigger: ".core-container",
-      scrub: scrubAmount,
-      markers: false,
-      start: "top bottom",
-      end: "center center",
-    },
-  })
+    //?3rd Position
+    .to(bionicArm.position, {
+      x: 0,
+      y: -0.5,
+      z: 2.2,
+      scrollTrigger: {
+        trigger: ".core-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+    .to(bionicArm.rotation, {
+      x: 1.57,
+      y: 0,
+      z: 0,
+      scrollTrigger: {
+        trigger: ".core-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+
+    //?4th Position
+    .to(bionicArm.position, {
+      x: 0.022,
+      y: -0.58,
+      z: 4.55,
+      scrollTrigger: {
+        trigger: ".chipset-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+    .to(bionicArm.rotation, {
+      // x: 1.3,
+      z: Math.PI,
+      scrollTrigger: {
+        trigger: ".chipset-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+    .to(bionicArmCover.position, {
+      y: "-=0.005",
+      z: "-=0.01",
+      scrollTrigger: {
+        trigger: ".chipset-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+
+    //?5th Position
+    .to(bionicArmCover.position, {
+      y: "+=0.005",
+      z: "+=0.01",
+      scrollTrigger: {
+        trigger: ".colors-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+    .to(bionicArm.position, {
+      x: -0.05,
+      y: 0.3,
+      z: 0,
+      scrollTrigger: {
+        trigger: ".colors-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
+    .to(bionicArm.rotation, {
+      x: Math.PI / 2,
+      y: 0,
+      z: 0,
+      scrollTrigger: {
+        trigger: ".colors-container",
+        scrub: scrubAmount,
+        start: "top bottom",
+        end: "center center",
+      },
+    })
 
   tl.invalidate()
 }
